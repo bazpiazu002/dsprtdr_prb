@@ -8,6 +8,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -19,16 +22,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Broadcast-a egingo duen intenta konfiguratu
-        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        pIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
-        //Alarma ezarri
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        //Zenbat denboran saltatuko duen alarma
-        int interval = 8000;
-        //Alarma ezartzeko funtzioa: zer egin ordua iristean, noiztik hasi, zenbat denbora hasieratik, ze intent exekutatu.
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),interval, pIntent);
-        Toast.makeText(this, "alarma jarrita", Toast.LENGTH_SHORT).show();
+
+        Button set = (Button) (Button) findViewById(R.id.button1);
+        set.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                setAlarm();
+            }
+        });
     }
 
 
@@ -52,5 +54,19 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setAlarm()
+    {
+        //Broadcast-a egingo duen intenta konfiguratu
+        Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        pIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+        //Alarma ezarri
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        //Zenbat denboran saltatuko duen alarma
+        int interval = 8000;
+        //Alarma ezartzeko funtzioa: zer egin ordua iristean, noiztik hasi, zenbat denbora hasieratik, ze intent exekutatu.
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis(),interval, pIntent);
+        Toast.makeText(this, "alarma jarrita", Toast.LENGTH_SHORT).show();
     }
 }
