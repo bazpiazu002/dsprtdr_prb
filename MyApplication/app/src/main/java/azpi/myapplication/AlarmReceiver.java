@@ -12,6 +12,6 @@ public class AlarmReceiver extends BroadcastReceiver
 {
     public void onReceive(Context context, Intent intent)
     {
-        Toast.makeText(context, "Alarmak jo du", Toast.LENGTH_SHORT).show();a
+        Toast.makeText(context, "Alarmak jo du", Toast.LENGTH_SHORT).show();
     }
 }
